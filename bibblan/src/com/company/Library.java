@@ -12,7 +12,6 @@ public class Library {
         System.out.println("2. Lämna tillbaka en bok");
         System.out.println("3. Se en lista över böckerna");
         System.out.println("4. Söka efter en bok");
-        System.out.println("test");
     }
 
 
