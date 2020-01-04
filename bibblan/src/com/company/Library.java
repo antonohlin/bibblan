@@ -5,13 +5,16 @@ import java.util.*;
 import java.util.Scanner;
 
 public class Library {
+
+    Scanner userInput = new Scanner(System.in);
 private final Path available = Paths.get("available.txt");
 private final Path loaned = Paths.get("loaned.txt");
 
     public Library(){
-        List<String> available = readAvailable();
-        List<String> loaned = readLoaned();
+        readAvailable();
+        readLoaned();
         welcomeScreen();
+        userAction();
     }
 
     private List<String> readAvailable(){
@@ -31,7 +34,6 @@ private final Path loaned = Paths.get("loaned.txt");
         return new ArrayList<>(); //returnera en arraylist till loaned (rad 13)
     }
 
-
     private void welcomeScreen(){
         System.out.println("Hej!");
         System.out.println("Vad vill du göra?");
@@ -39,6 +41,40 @@ private final Path loaned = Paths.get("loaned.txt");
         System.out.println("2. Lämna tillbaka en bok");
         System.out.println("3. Se en lista över böckerna");
         System.out.println("4. Söka efter en bok");
+    }
+
+    private void userAction(){
+        int userChoice = userInput.nextInt(); //Användaren får välja 1-4, annars felmeddelande och anropa metoden igen.
+        switch (userChoice) {
+            case 1: borrowBook();
+                break;
+            case 2: returnBook();
+                break;
+            case 3: seeAllBooks(readAvailable(), readLoaned()); //Ta med resultatet från RA() och RL()
+                break;
+            case 4: searchBook();
+                break;
+            default: System.out.println("Oj, något blev fel! Gör ett nytt val!");
+            userAction();
+        }
+    }
+    private void borrowBook(){
+        System.out.println("Lånar bok");
+    }
+    private void returnBook(){
+        System.out.println("Lämna bok");
+    }
+    private void seeAllBooks(List<String> available, List<String> loaned){
+        System.out.println("Lista över böcker");
+        for (String bookInfo : available){ //Läs igenom available.txt
+            System.out.println(bookInfo);
+        }
+        for (String bookInfo : loaned){ //Läs igenom loaned.txt
+            System.out.println(bookInfo);
+        }
+    }
+    private void searchBook(){
+    System.out.println("Sök bok");
     }
 }
 

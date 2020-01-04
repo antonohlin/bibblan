@@ -1,1 +1,4 @@
 id: 1 // Författare: Astrid Lindgren // Titel: Pippi Långstrump på de sju haven
+id: 2 // Författare: Astrid Lindgren // Titel: Emil i Lönneberga
+id: 3 // Författare: J.R.R. Tolkien // Titel: Sagan om Ringen
+id: 4 // Författare: J.K. Rowling // Titel: Harry Potter & De vises sten
