@@ -7,14 +7,14 @@ import java.util.Scanner;
 public class Library {
 
     Scanner userInput = new Scanner(System.in);
-private final Path available = Paths.get("available.txt");
+private final Path available = Paths.get("available.txt"); //dessa läses bara in en gång när programmet startas och ska inte förändras under programmets gång, där av final.
 private final Path loaned = Paths.get("loaned.txt");
 
     public Library(){
-        readAvailable();
-        readLoaned();
-        welcomeScreen();
-        userAction();
+        readAvailable(); //Läs in available.txt
+        readLoaned(); //Läs in loaned.txt
+        welcomeScreen(); //Prita välkommsttext för användaren
+        userAction(); //Invänta användarens val
     }
 
     private List<String> readAvailable(){
@@ -50,9 +50,9 @@ private final Path loaned = Paths.get("loaned.txt");
                 break;
             case 2: returnBook();
                 break;
-            case 3: seeAllBooks(readAvailable(), readLoaned()); //Ta med resultatet från RA() och RL()
+            case 3: seeAllBooks(readAvailable(), readLoaned()); //Skicka med våra listor över böcker
                 break;
-            case 4: searchBook();
+            case 4: searchBook(readAvailable(), readLoaned()); //Skicka med våra listor över böcker
                 break;
             default: System.out.println("Oj, något blev fel! Gör ett nytt val!");
             userAction();
@@ -73,8 +73,38 @@ private final Path loaned = Paths.get("loaned.txt");
             System.out.println(bookInfo);
         }
     }
-    private void searchBook(){
-    System.out.println("Sök bok");
+    private String searchBook(List<String> available, List<String> loaned){
+        boolean match = false; //Har någon match hittats?
+        int hits = 0; //Räkna antalet matchande sökträffar
+    System.out.println("Skriv in en del av författarens namn eller titeln på en bok:");
+    String userSearch = userInput.next(); //Nästa fras blir sökfrasen
+        for (String stringSearch : available) { //Loopa igenom available.txt efter sökfrasen
+            if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //om matchning printa fras + träff
+                System.out.println(stringSearch); //Printa den hittade titeln
+                match = true; //You got a match!
+                hits++; //+1 på totala träffarna
+            }
+        }
+        if (match){ //Visas bara om vi fått en matchning
+            System.out.println("Sökfrasen matchade " + hits + " av våra tillgängliga böcker.");
+        }
+        match = false; //Återställ match och träffar för att söka igenom loaned.txt
+        hits = 0;
+
+        for (String stringSearch : loaned) { //Loopa igenom loaned.txt efter sökfrasen
+            if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //Om matchning printa fras + träff
+                System.out.println(stringSearch);
+                match = true;
+                hits++;
+            }
+        }
+        if (match){
+            System.out.println("Sökfrasen matchade " + hits + " av våra utlånade böcker.");
+        }
+        if (!match){ //Hit kommer vi bara om den varken träffar i available eller loaned
+            System.out.println("Tyvärr din sökfras gav ingen träff");
+        }
+        return null; //Returnera inget då resultatet printas direkt.
     }
 }
 
