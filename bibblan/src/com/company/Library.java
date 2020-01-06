@@ -74,34 +74,34 @@ private final Path loaned = Paths.get("loaned.txt");
         }
     }
     private String searchBook(List<String> available, List<String> loaned){
-        boolean match = false; //Har någon match hittats?
+        boolean availableMatch = false; //Har någon match hittats i tillgängliga?
+        boolean loanedMatch = false; //Har någon match hittats i utlånade?
         int hits = 0; //Räkna antalet matchande sökträffar
     System.out.println("Skriv in en del av författarens namn eller titeln på en bok:");
     String userSearch = userInput.next(); //Nästa fras blir sökfrasen
         for (String stringSearch : available) { //Loopa igenom available.txt efter sökfrasen
             if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //om matchning printa fras + träff
                 System.out.println(stringSearch); //Printa den hittade titeln
-                match = true; //You got a match!
+                availableMatch = true; //You got a match!
                 hits++; //+1 på totala träffarna
             }
         }
-        if (match){ //Visas bara om vi fått en matchning
+        if (availableMatch){ //Visas bara om vi fått en matchning
             System.out.println("Sökfrasen matchade " + hits + " av våra tillgängliga böcker.");
         }
-        match = false; //Återställ match och träffar för att söka igenom loaned.txt
-        hits = 0;
+        hits = 0;//Återställ träffar för att söka igenom loaned.txt
 
         for (String stringSearch : loaned) { //Loopa igenom loaned.txt efter sökfrasen
             if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //Om matchning printa fras + träff
                 System.out.println(stringSearch);
-                match = true;
+                loanedMatch = true;
                 hits++;
             }
         }
-        if (match){
+        if (loanedMatch){
             System.out.println("Sökfrasen matchade " + hits + " av våra utlånade böcker.");
         }
-        if (!match){ //Hit kommer vi bara om den varken träffar i available eller loaned
+        if (!availableMatch && !loanedMatch){ //Hit kommer vi bara om den varken träffar i available eller loaned
             System.out.println("Tyvärr din sökfras gav ingen träff");
         }
         return null; //Returnera inget då resultatet printas direkt.
