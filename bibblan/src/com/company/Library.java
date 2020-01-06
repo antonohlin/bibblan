@@ -46,7 +46,7 @@ private final Path loaned = Paths.get("loaned.txt");
     private void userAction(){
         int userChoice = userInput.nextInt(); //Användaren får välja 1-4, annars felmeddelande och anropa metoden igen.
         switch (userChoice) {
-            case 1: borrowBook();
+            case 1: borrowBook(readAvailable(), readLoaned());
                 break;
             case 2: returnBook();
                 break;
@@ -58,8 +58,23 @@ private final Path loaned = Paths.get("loaned.txt");
             userAction();
         }
     }
-    private void borrowBook(){
-        System.out.println("Lånar bok");
+    private void borrowBook(List<String> available, List<String> loaned){
+
+        System.out.println("Ange ID på den bok du vill låna: ");
+        int chosenBookId = (userInput.nextInt() - 1); //Få en position av användaren och ta sedan bort 1 för att matcha det med platsen i arrayen (För att användaren ska slippa räkna med talet 0
+        System.out.println("Vill du låna boken: " + available.get(chosenBookId) + "? Y/N");
+        char borrow = (userInput.next().charAt(0)); //Låter användaren svara yes/y
+        if (borrow == 'y' || borrow == 'Y'){
+            System.out.println("lånad");
+            System.out.println("Flyttad till loaned.txt");
+            loaned.add(available.get(chosenBookId)); //Addera till loaned och ta sedan bort från available, OBS, funkar ej! 
+            available.remove(available.get(chosenBookId));
+        } else if (borrow == 'n' || borrow == 'N'){ //Eller no/n
+            System.out.println("Inte lånad");
+        } else {
+            System.out.println("felaktig inmatning");
+            borrowBook(readAvailable(), readLoaned());
+        }
     }
     private void returnBook(){
         System.out.println("Lämna bok");
@@ -82,7 +97,7 @@ private final Path loaned = Paths.get("loaned.txt");
         for (String stringSearch : available) { //Loopa igenom available.txt efter sökfrasen
             if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //om matchning printa fras + träff
                 System.out.println(stringSearch); //Printa den hittade titeln
-                availableMatch = true; //You got a match <3
+                availableMatch = true; //You've got a match <3
                 hits++; //+1 på totala träffarna
             }
         }
