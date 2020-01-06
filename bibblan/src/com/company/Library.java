@@ -67,7 +67,7 @@ private final Path loaned = Paths.get("loaned.txt");
         if (borrow == 'y' || borrow == 'Y'){
             System.out.println("lånad");
             System.out.println("Flyttad till loaned.txt");
-            loaned.add(available.get(chosenBookId)); //Addera till loaned och ta sedan bort från available, OBS, funkar ej! 
+            loaned.add(available.get(chosenBookId)); //Addera till loaned och ta sedan bort från available, OBS, funkar ej!
             available.remove(available.get(chosenBookId));
         } else if (borrow == 'n' || borrow == 'N'){ //Eller no/n
             System.out.println("Inte lånad");
