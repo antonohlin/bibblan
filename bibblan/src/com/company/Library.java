@@ -82,7 +82,7 @@ private final Path loaned = Paths.get("loaned.txt");
         for (String stringSearch : available) { //Loopa igenom available.txt efter sökfrasen
             if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //om matchning printa fras + träff
                 System.out.println(stringSearch); //Printa den hittade titeln
-                availableMatch = true; //You got a match!
+                availableMatch = true; //You got a match <3
                 hits++; //+1 på totala träffarna
             }
         }
@@ -94,8 +94,8 @@ private final Path loaned = Paths.get("loaned.txt");
         for (String stringSearch : loaned) { //Loopa igenom loaned.txt efter sökfrasen
             if (stringSearch.toLowerCase().contains(userSearch.toLowerCase())) { //Om matchning printa fras + träff
                 System.out.println(stringSearch);
-                loanedMatch = true;
-                hits++;
+                loanedMatch = true; //Match
+                hits++; //träffar +1
             }
         }
         if (loanedMatch){
